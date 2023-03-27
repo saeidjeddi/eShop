@@ -1,7 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="navbar-nav">
-            <a class="nav-link active" href="{% url 'home:home' %}">Home</a>
+            <a class="nav-link active" href="{% url 'home:index' %}">صفحه اصلی</a>
+            <span class="text text-warning mt-2">|</span>
+            <a class="nav-link active" href="{% url 'accounts:register' %}">عضویت</a>
+            <span class="text text-warning mt-2">|</span>
+
         </div>
     </div>
+
 </nav>
+
