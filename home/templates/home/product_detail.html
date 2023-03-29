@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+    <div class="card mb-3">
+  <img src="{{ product.imag.url }}" class="card-img-top" alt="{{ product.name }}" width="100%" height="450px">
+  <div class="card-body">
+    <h1 class="card-title">{{ product.name }}</h1>
+
+    <p class="card-text">{{ product.description|safe }}</p>
+
+    <p class="card-text">
+        <small class="text-body-secondary rtl bg-warning"> پست شده : {{ product.jalali }}</small>
+        <small class="text-body-secondary bg-warning"> بروزشده : {{ product.created|timesince }}</small>
+    </p>
+    <p class="card-text">
+        <small class="text-body-secondary btn btn-primary"> قیمت : {{ product.price }}</small>
+        <small class="text-body-secondary btn btn-danger"> خرید : {{ product.price }}</small>
+    </p>
+
+      <img src="{% static 'img/H.jpg' %}" class="rounded float-start" alt="..." height="320px" width="320px">
+<img src="{% static 'img/s.png' %}" class="rounded float-end" alt="..." height="320px" width="320px" >
+
+  </div>
+</div>
+
+
+{% endblock %}

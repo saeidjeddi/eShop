@@ -1,0 +1,45 @@
+.jumbotron{
+    padding: 20px;
+    margin-bottom: 20px;
+    direction: rtl;
+
+}
+
+body{
+  background: #e9ecef ;
+}
+
+.text-body-secondary.btn.btn-danger{
+    position: relative;
+    right: 40%;
+}
+
+.text-body-secondary.text-r {
+    direction: ltr;
+    position: absolute;
+    left: 11px;
+}
+
+.text-body-secondary.rtl{
+        direction: ltr;
+    position: absolute;
+    left: 11px;
+}
+
+.taga{
+    text-decoration: none;
+    color: black;
+    text-decoration-color: black;
+}
+.taga a:hover{
+    color: black;
+}
+
+
+a:hover.taga {
+  color: #040211;
+}
+a:hover.taga p {
+  color: black;
+}
+

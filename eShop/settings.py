@@ -38,12 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # add my app
+    # add My app
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
 
-    # add extensions
+    # add Extensions
     'extensions',
+
+    # add External app
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -124,10 +127,36 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
+
+
+# Media File
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+#----------------------------------
+# Arvan CLOUD STORAGE
+
+# django >= 4.2
+# STORAGES = {"default": "storages.backends.s3boto3.S3Boto3Storage"}
+# django < 4.2
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#AWS_S3_ACCESS_KEY_ID or AWS_ACCESS_KEY_ID
+AWS_ACCESS_KEY_ID = 'b323e03b-430c-4d39-8a39-840f36e3e8c6'
+#AWS_S3_SECRET_ACCESS_KEY or AWS_SECRET_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = '18657191ab7f64de29690f6d71445c713ae80075'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-tbz-sh1.arvanstorage.ir'
+AWS_STORAGE_BUCKET_NAME = 'eshop'
+AWS_SERVICE_NAME = 's3'
+AWS_S3_FILE_OVERWRITE = False
+# AWS_S3_SIGNATURE_VERSION = 's3v4'

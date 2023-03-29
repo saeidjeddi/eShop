@@ -1,5 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block mincss %}
+    <link rel="stylesheet" href="{% static 'home/css/css.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>سلام.</h1>
+
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+{% for sercher in sercher1 %}
+    <div class="carousel-item active">
+      <img src="{{ sercher.imag.url }}" class="d-block w-100 h-30" alt="" height="300px">
+    </div>
+{% endfor %}
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<hr>
+
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for products in product %}
+<div class="col">
+<div class="card h-100">
+    <a href="{{ products.get_absolute_url }}" class="taga">
+<img src="{{ products.imag.url }}" class="card-img-top" alt="{{ products.name }}" width="100%" height="320px">
+<div class="card-body">
+<h5 class="card-title">{{ products.name }}</h5>
+<p class="card-text">{{ products.description| truncatechars:150| striptags }}</p>
+    <p class="card-text"><small class="text-body-secondary btn btn-primary"> قیمت : {{ products.price }}</small></p>
+</div>
+    </a>
+        <div class="card-footer">
+      <small class="text-body-secondary text-r">پست شده : {{ products.jalali }}</small>
+      <small class="text-body-secondary"> بروزرسانی :{{ products.updated|timesince }}</small>
+    </div>
+
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+
 {% endblock %}

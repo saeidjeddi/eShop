@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table class="table table-bordered table-dark" style="text-align: center">
+
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">نام</th>
+      <th scope="col">اندازه</th>
+      <th scope="col">بارگیری</th>
+      <th scope="col">حذف</th>
+      <th scope="col">تصویر</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in objects %}
+
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ obj.Key }}</td>
+      <td style="direction: ltr">{{ obj.Size|filesizeformat }}</td>
+      <td><a href="{% url 'home:bucket_delete' obj.Key %}">حذف</a></td>
+    </tr>
+
+  {% endfor %}
+
+
+  </tbody>
+
+
+
+</table>
+
+
+{% endblock %}

@@ -5,6 +5,9 @@
             <span class="text text-warning mt-2">|</span>
             <a class="nav-link active" href="{% url 'accounts:register' %}">عضویت</a>
             <span class="text text-warning mt-2">|</span>
+            {% if request.user.is_admin %}
+            <a class="nav-link active" href="{% url 'home:bucket' %}">باکت</a>
+            {% endif %}
 
         </div>
     </div>
