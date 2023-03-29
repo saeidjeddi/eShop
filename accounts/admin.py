@@ -14,19 +14,19 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'phone_number', 'full_name', 'is_active', 'is_admin')
+    list_display = ('username', 'email', 'phone_number', 'full_name', 'is_active', 'is_admin')
     list_filter = ('is_admin', 'is_active')
 
     fieldsets = (
-        (None, {'fields': ('email', 'phone_number', 'full_name', 'password')}),
+        (None, {'fields': ('username', 'email', 'phone_number', 'full_name', 'password')}),
         ('ویژگی ها', {'fields': ('is_active', 'is_admin', 'last_login')})
     )
 
     add_fieldsets = (
-        (None, {"fields": ('phone_number', 'email', 'full_name', 'password1', 'password2')}),
+        (None, {"fields": ('username', 'phone_number', 'email', 'full_name', 'password1', 'password2')}),
     )
-    search_fields = ('email', 'full_name', 'phone_number')
-    ordering = ('email', 'full_name', 'phone_number')
+    search_fields = ('username', 'email', 'full_name', 'phone_number')
+    ordering = ('username', 'email', 'full_name', 'phone_number')
     list_per_page = 4
 
     filter_horizontal = ()
@@ -34,4 +34,13 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
-admin.site.register(OtpCod)
+
+
+@admin.register(OtpCod)
+class OtpCodeAdmin(admin.ModelAdmin):
+    list_display = ('phone_number', 'code', 'jalali')
+    search_fields = ('phone_number', 'code')
+    list_per_page = 3
+
+
+

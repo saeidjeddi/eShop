@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-
-
     <form  method="post" novalidate>{% csrf_token %}
 
 
 
     {{ form.as_p }}
 
-        <button type="submit">ثبت نام</button>
+        <button type="submit">ارسال</button>
 
 
     </form>
-
-
 {% endblock %}
