@@ -36,7 +36,7 @@ class User(AbstractBaseUser):
 
 
 class OtpCod(models.Model):
-    phone_number = models.CharField(max_length=11, verbose_name='شماره تماس')
+    phone_number = models.CharField(max_length=11, verbose_name='شماره تماس', unique=True)
     code = models.PositiveSmallIntegerField(verbose_name='کد تایید')
     created = models.DateTimeField(auto_now=True)
 

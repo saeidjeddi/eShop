@@ -5,7 +5,8 @@ import random
 from utils import send_otp_code
 from .models import OtpCod, User
 from django.contrib import messages
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 
@@ -51,10 +52,11 @@ class UserRegisterVerifyCodeView(View):
         if form.is_valid():
             cd = form.cleaned_data
             if cd['code'] == code_instance.code:
-                User.objects.creat_user(user_session['phone_number'], user_session['username'], user_session['email'], user_session['full_name'],
+                user = User.objects.creat_user(user_session['phone_number'], user_session['username'], user_session['email'], user_session['full_name'],
                                         user_session['password'])
 
                 code_instance.delete()
+                login(request, user)
                 messages.success(request, 'ثبت نام با موفقیت انجام شد .', 'success')
                 return redirect('home:index')
             else:
@@ -63,3 +65,29 @@ class UserRegisterVerifyCodeView(View):
         return redirect('home:index')
 
 
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, 'از حساب خارج شدید', 'success')
+        return redirect('home:index')
+
+
+class LoginView(View):
+    form_class = forms.UserLoginForm
+    template_name = 'accounts/user_login.html'
+
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request, phone_number=cd['phone'], password=cd['password'])
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'با موفقیت وارد حساب شدید', 'info')
+                return redirect('home:index')
+            messages.error(request, 'خطا در ورود', 'warning')
+        return render(request, self.template_name, {'form': form})

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card text-center">
+  <div class="card-header">
+    خطای دسترسی ۴۰۳
+  </div>
+  <div class="card-body">
+    <h1 class="card-title">شما مجاز به دیدن این صفحه نمیباشید </h1>
+      <img src="{% static 'img/403.png' %}" alt="خطای دسترسی ۴۰۳">
+
+  </div>
+  <div class="card-footer text-body-secondary">
+       <a href="/" class="btn btn-primary">صفحه اصلی</a>
+  </div>
+</div>
+{% endblock %}

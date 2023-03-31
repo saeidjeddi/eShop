@@ -10,9 +10,9 @@
       <th scope="col">#</th>
       <th scope="col">نام</th>
       <th scope="col">اندازه</th>
-      <th scope="col">بارگیری</th>
       <th scope="col">حذف</th>
-      <th scope="col">تصویر</th>
+      <th scope="col">بارگیری</th>
+
     </tr>
   </thead>
   <tbody>
@@ -22,7 +22,8 @@
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{ obj.Key }}</td>
       <td style="direction: ltr">{{ obj.Size|filesizeformat }}</td>
-      <td><a href="{% url 'home:bucket_delete' obj.Key %}">حذف</a></td>
+      <td><a href="{% url 'home:delete_obj' obj.Key %}">حذف</a></td>
+      <td><a href="{% url 'home:download_obj' obj.Key %}">دانلود</a></td>
     </tr>
 
   {% endfor %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from .models import User
+from .models import User, OtpCod
 
 
 class UserCreationForm(forms.ModelForm):
@@ -55,6 +55,7 @@ class UserRegisterForm(forms.Form):
         phone_number = self.cleaned_data.get('phone_number')
         if User.objects.filter(phone_number__iexact=phone_number).exists():
             raise ValidationError('کاربر با این شماره قبلا ثبت نام شده')
+        OtpCod.objects.filter(phone_number=phone_number).delete()
         return phone_number
 
     def clean_username(self):
@@ -66,3 +67,8 @@ class UserRegisterForm(forms.Form):
 
 class VerifyCodeForm(forms.Form):
     code = forms.IntegerField(label='کد')
+
+
+class UserLoginForm(forms.Form):
+    phone = forms.CharField(label='شماره تلفن', max_length=11)
+    password = forms.CharField(widget=forms.PasswordInput, label='رمز ورود')
