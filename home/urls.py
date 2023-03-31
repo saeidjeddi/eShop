@@ -14,8 +14,10 @@ bucket_urls = [
 ]
 
 urlpatterns = [
-    path('', views.HomeView.as_view(), name='index'),
+    # path('category/<slug:category_slug>/', views.HomeView.as_view(), name='category'),
+    re_path(r'category/(?P<slug>[-\w]+)/', views.HomeView.as_view(), name='category'),
     path('bucket/', include(bucket_urls)),
     # path('diteil/<int:id>/<slug:slug>/', views.ProductDetailView.as_view(), name='product_detail'),
     re_path(r'diteil/(?P<id>[0-9]+)/(?P<slug>[-\w]+)', views.ProductDetailView.as_view(), name='product_detail'),
+    path('', views.HomeView.as_view(), name='index'),
 ]

@@ -28,10 +28,35 @@
 
 <hr>
 
+    {% for cat in categories %}
+{#        <a href="{{ cat.get_absolute_url }}"  class="btn btn-primary active">{{ cat.name }}</a>#}
+{#        <a href="{% url 'home:category' cat.slug %}"  class="btn btn-primary active">{{ cat.name }}</a>#}
+<div class="btn-group">
+  <a href="{{ cat.get_absolute_url }}"  class="btn btn-warning">{{ cat.name }}</a>
+{% if cat.scategory.all %}
+  <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false"></button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+      {% for sub in cat.scategory.all %}
+       <li><a class="dropdown-item" href="{{ sub.get_absolute_url }}">{{ sub.name }}</a></li>
+     {% endfor %}
+{% endif %}
+
+
+
+
+
+  </ul>
+</div>
+
+
+    {% endfor %}
+    <br>
+    <hr>
+
 
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
-{% for products in product %}
+{% for products in products %}
 <div class="col">
 <div class="card h-100">
     <a href="{{ products.get_absolute_url }}" class="taga">

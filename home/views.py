@@ -10,14 +10,14 @@ from utils import IsAdminUsrMixin
 
 
 class HomeView(View):
-    def get(self, request):
-        product = models.Product.objects.filter(available=True)
+    def get(self, request, slug=None):
+        products = models.Product.objects.filter(available=True)
         sercher1 = models.Product.objects.filter(available=True).order_by('?')[:3]
-        context = {
-            'product': product,
-            'sercher1': sercher1
-        }
-        return render(request, 'home/index.html', context=context)
+        categories = models.Category.objects.filter(status=True, is_sub=False)
+        if slug:
+            category = get_object_or_404(models.Category, slug=slug)
+            products = products.filter(category=category)
+        return render(request, 'home/index.html', {'products': products, 'sercher1': sercher1, 'categories': categories})
 
 
 class ProductDetailView(View):

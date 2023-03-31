@@ -4,9 +4,15 @@ from django.urls import reverse
 
 
 class Category(models.Model):
+    sub_category = models.ForeignKey('self', on_delete=models.CASCADE, related_name='scategory', null=True, blank=True, verbose_name='زیر مجموعه')
+    is_sub = models.BooleanField(default=False, verbose_name='آیا زیر مجموعه میباشد ؟')
     name = models.CharField(max_length=255, verbose_name='نام')
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True, verbose_name='اسلاگ')
+    status = models.BooleanField(default=True, verbose_name='نمایش داده شود ؟')
     created = models.DateTimeField(auto_now_add=True, verbose_name='زمان')
+
+    def get_absolute_url(self):
+        return reverse('home:category', args=[self.slug])
 
     class Meta:
         ordering = ('-created', 'name')
