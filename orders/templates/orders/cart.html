@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<table class="table table-dark table-striped table-bordered">
+
+  <thead class="table table-info">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">نام</th>
+      <th scope="col" class="text text-center">تعداد</th>
+      <th scope="col" class="text text-center">قیمت</th>
+      <th scope="col" class="text text-center">قیمت کل</th>
+      <th scope="col" class="text text-center">حذف از سبد </th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for item in cart %}
+
+        <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ item.product }}</td>
+            <td class="text text-center">{{ item.quantity }}</td>
+            <td class="text text-center">{{ item.price }}</td>
+            <td class="text text-center">{{ item.total_price }}</td>
+            <td class="text text-center"><a href="{% url 'orders:cart_remove' item.product.id %}">حذف</a></td>
+
+        </tr>
+
+  {% endfor %}
+  <tr>
+  <td>
+      <td colspan="6" class="text text-center">   مجموعه کل هزینه   :  <span class="text text-warning">  {{ cart.get_total_price }} </span></td>
+  </tr>
+
+
+
+
+
+</table>
+
+      <button type="submit" class="btn btn-success center">پرداخت</button>
+      <button type="submit" class="btn btn-danger center">لغو پرداخت </button>
+
+{% endblock %}

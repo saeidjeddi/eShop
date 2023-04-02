@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # add My app
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
+    'orders.apps.OrdersConfig',
 
     # add Extensions
     'extensions',

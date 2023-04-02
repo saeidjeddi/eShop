@@ -5,6 +5,7 @@ from . import tasks
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from utils import IsAdminUsrMixin
+from orders.forms import CortAddForm
 
 # Create your views here.
 
@@ -23,7 +24,8 @@ class HomeView(View):
 class ProductDetailView(View):
     def get(self, request, id, slug):
         product = get_object_or_404(models.Product, id=id, slug=slug)
-        return render(request, 'home/product_detail.html', {'product': product})
+        form = CortAddForm()
+        return render(request, 'home/product_detail.html', {'product': product, 'form': form})
 
 
 class BucketHome(LoginRequiredMixin,IsAdminUsrMixin, View):

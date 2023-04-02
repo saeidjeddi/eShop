@@ -19,8 +19,11 @@
     </p>
     <p class="card-text">
         <small class="text-body-secondary btn btn-primary"> قیمت : {{ product.price }}</small>
-        <small class="text-body-secondary btn btn-danger"> خرید : {{ product.price }}</small>
-    </p>
+      <form action="{% url 'orders:cart_add' product.id %}" method="post">{% csrf_token %}
+        <button type="submit" class="text-body-secondary btn btn-danger"> خرید </button>
+        <small class="text-body-secondary btn btn-info">{{ form }}</small>
+      </form>
+      </p>
 
       <img src="{% static 'img/H.jpg' %}" class="rounded float-start" alt="..." height="320px" width="320px">
 <img src="{% static 'img/s.png' %}" class="rounded float-end" alt="..." height="320px" width="320px" >

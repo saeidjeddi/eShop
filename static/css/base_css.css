@@ -9,9 +9,14 @@ body{
   background: #e9ecef ;
 }
 
+.text-body-secondary.btn.btn-info {
+  position: relative;
+  right: 63%;
+}
+
 .text-body-secondary.btn.btn-danger{
     position: relative;
-    right: 40%;
+    right: 84%;
 }
 
 .text-body-secondary.text-r {
@@ -43,3 +48,11 @@ a:hover.taga p {
   color: black;
 }
 
+.btn.btn-success.center {
+  position: relative;
+  right: 45%;
+}
+.btn.btn-danger.center {
+  position: relative;
+  right: 50%;
+}

@@ -20,6 +20,7 @@ from . import settings
 
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
+    path('orders/', include('orders.urls')),
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
 ]
