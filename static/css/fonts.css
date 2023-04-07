@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "tanha";
+    font-style: normal;
+    font-weight: 300;
+    font-display: auto;
+
+    src:url(../font/Tanha-FD.ttf) format("truetype")
+}
+

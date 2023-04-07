@@ -18,10 +18,24 @@
 
             {% if request.user.is_admin %}
             <a class="nav-link active" href="{% url 'home:bucket' %}">باکت</a>
+                <span class="text text-warning mt-2">|</span>
             {% endif %}
+
+
+
 
         </div>
     </div>
+
+
+
+<a href="{% url 'orders:cart' %}" class="btn btn-primary position-relative " style="left: 2%"><span class="d-flex">سبدخرید
+</span>
+<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
++{{ cart|length }}
+<span class="visually-hidden">unread messages</span>
+</span>
+</a>
 
 </nav>
 

@@ -43,7 +43,7 @@
 
 </table>
 
-      <button type="submit" class="btn btn-success center">پرداخت</button>
-      <button type="submit" class="btn btn-danger center">لغو پرداخت </button>
+      <a href="{% url 'orders:order_create' %}"  class="btn btn-success center">ثبت سفارش </a>
+      <a href="{% url 'orders:remove_order_cart'  %}" class="btn btn-danger center">لغو پرداخت </a>
 
 {% endblock %}

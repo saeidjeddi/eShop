@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>ثبت سفارش</h3>
+
+    <p> قیمت : {{ order.get_total_price }}</p>
+
+    <span>{{ order.user.full_name }}</span>
+    <hr>
+    <a href="{% url 'orders:pay' order.id %}"  class="btn btn-success">پرداخت</a>
+
+
+
+{% endblock %}
