@@ -1,14 +1,15 @@
-import json
-
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.views import View
 from .cart import Cart
 from home.models import Product
-from .forms import CortAddForm
+from .forms import CortAddForm, CouponForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Order, OrderItem
+from .models import Order, OrderItem, Coupon
 import requests
 import json
+import datetime
+from django.contrib import messages
+
 
 
 class CartView(View):
@@ -47,9 +48,11 @@ class OrderCreatView(LoginRequiredMixin, View):
 
 
 class OrderDetailView(LoginRequiredMixin, View):
+    form_class = CouponForm
+
     def get(self, request, id):
         order = get_object_or_404(Order, id=id)
-        return render(request, 'orders/order.html', {'order': order})
+        return render(request, 'orders/order.html', {'order': order, 'form': self.form_class})
 
 
 class RemoveOrderCart(LoginRequiredMixin, View):
@@ -122,4 +125,24 @@ class OrderVerifyView(LoginRequiredMixin, View):
 
         else:
             return HttpResponse('معامله انجام نشد یا توسط کاربر لغو شد')
+
+
+class OrderApplyCoupanView(LoginRequiredMixin, View):
+    form_class = CouponForm
+
+    def post(self, request, id):
+        now = datetime.datetime.now()
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            try:
+                coupon = Coupon.objects.get(code__exact=code, valid_from__lte=now, valid_to__gte=now, active=True)
+            except Coupon.DoesNotExist:
+                messages.error(request, 'کد تخفیف اشتباه یا قبلا استفاده شده هست', 'danger')
+                return redirect('orders:order_detail', id)
+            order = Order.objects.get(id=id)
+            order.discount = coupon.discount
+            order.save()
+        return redirect('orders:order_detail', id)
+
 

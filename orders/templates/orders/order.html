@@ -6,7 +6,16 @@
 
     <p> قیمت : {{ order.get_total_price }}</p>
 
-    <span>{{ order.user.full_name }}</span>
+    <span>سفارش دهنده : {{ order.user.full_name }}</span>
+    <br>
+    <hr>
+    <form action="{% url 'orders:apply' order.id %}" method="post">{% csrf_token %}
+
+    {{ form }}
+
+        <button type="submit">اعمال</button>
+
+    </form>
     <hr>
     <a href="{% url 'orders:pay' order.id %}"  class="btn btn-success">پرداخت</a>
 
