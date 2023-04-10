@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin
 from .manegers import UserManager
 from extensions.jalali.utils import django_persianJalali_converter
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True, verbose_name='نام کاربری')
     email = models.EmailField(max_length=255, unique=True, verbose_name='ایمیل')
     phone_number = models.CharField(max_length=11, unique=True, verbose_name='شماره موبایل')
@@ -24,11 +24,6 @@ class User(AbstractBaseUser):
         verbose_name = 'حساب'
         verbose_name_plural = 'حساب ها'
 
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
 
     @property
     def is_staff(self):

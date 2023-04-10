@@ -5,6 +5,7 @@ from .models import User, OtpCod
 from django.contrib.auth.models import Group
 
 
+
 # Register your models here.
 
 admin.site.site_header = 'پنل مدیریت وبسایت'
@@ -19,7 +20,7 @@ class UserAdmin(BaseUserAdmin):
 
     fieldsets = (
         (None, {'fields': ('username', 'email', 'phone_number', 'full_name', 'password')}),
-        ('ویژگی ها', {'fields': ('is_active', 'is_admin', 'last_login')})
+        ('ویژگی ها', {'fields': ('is_active', 'is_admin', 'is_superuser', 'last_login', 'groups', 'user_permissions')})
     )
 
     add_fieldsets = (
@@ -28,12 +29,24 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('username', 'email', 'full_name', 'phone_number')
     ordering = ('username', 'email', 'full_name', 'phone_number')
     list_per_page = 4
+    readonly_fields = ('last_login',)
 
-    filter_horizontal = ()
+    filter_horizontal = ('groups', 'user_permissions')
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        is_superuser = request.user.is_superuser
+        is_admin = request.user.is_admin
+        is_active = request.user.is_active
+        if not is_superuser:
+            form.base_fields['is_superuser'].disabled = True
+            form.base_fields['is_admin'].disabled = True
+            form.base_fields['is_active'].disabled = True
+        return form
 
 
-admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
+
 
 
 @admin.register(OtpCod)

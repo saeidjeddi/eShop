@@ -1,6 +1,7 @@
 from django.db import models
 from extensions.jalali.utils import django_persianJalali_converter
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Category(models.Model):
@@ -28,7 +29,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name='نام')
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True, verbose_name='اسلاگ')
     imag = models.ImageField(verbose_name='عکس')
-    description = models.TextField(verbose_name='توضیحات')
+    description = RichTextUploadingField(verbose_name='توضیحات')
     price = models.IntegerField(verbose_name='قیمت') #models.DecimalField(max_digits=7, decimal_places=4)
     available = models.BooleanField(default=True, verbose_name='موجود')
     created = models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')
@@ -49,7 +50,6 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('home:product_detail', kwargs={'id': self.id, 'slug': self.slug})
-
 
     def __str__(self):
         return f'{self.name}'
