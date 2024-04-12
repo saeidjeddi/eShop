@@ -20,7 +20,7 @@ django-js-asset==2.0.0
 django-storages==1.13.2
 django-timezone-field==5.0
 hiredis==2.2.2
-idna==3.4
+idna==3.7
 jmespath==1.0.1
 kavenegar==1.1.2
 kombu==5.2.4
